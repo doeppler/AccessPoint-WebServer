@@ -1,3 +1,5 @@
+<img src="https://img.shields.io/badge/version-1.2-orange.svg">
+
 # Access Point & Web Server
 <p> My first time messing with IoT and ESP8266. </p>
 <hr>
