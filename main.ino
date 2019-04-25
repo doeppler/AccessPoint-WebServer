@@ -12,8 +12,8 @@
 #include <ESP8266WebServer.h>
 
 // Network Information
-const char *ssid = "Network";  // Enter SSID here
-const char *password = "12345678";  //Enter Password here
+const char *ssid = "Network";
+const char *password = "12345678";
 
 // IP Information
 IPAddress local_ip(192,168,1,1);
@@ -25,10 +25,10 @@ ESP8266WebServer server(80);
 
 // Pins
 uint8_t led1Pin = D7;
-bool led1Status = LOW;
+bool led1Status = LOW; //Initial status
 
 uint8_t buzzerPin = D6;
-bool buzzerStatus = LOW;
+bool buzzerStatus = LOW; //Initial status
 
 void setup() {
   // Setting pins
@@ -41,7 +41,7 @@ void setup() {
   WiFi.softAPConfig(local_ip, gateway, subnet);
   delay(100);
 
-  // Initial server settings
+  // Server directories
   server.on("/", handle_OnConnect);
   server.on("/led1on", handle_Led1On);
   server.on("/led1off", handle_Led1Off);
@@ -53,6 +53,7 @@ void setup() {
   server.begin();
   Serial.println("Server status: ONLINE");
 }
+
 void loop() {
   server.handleClient();
   if(led1Status)
@@ -103,7 +104,7 @@ void handle_NotFound(){
   server.send(404, "text/plain", "Not found");
 }
 
-// HTML Page
+// Web Page (Control Panel)
 String SendHTML(uint8_t led1Stat,uint8_t buzzerStat){
   String ptr = "<!DOCTYPE html> <html>\n";
   ptr +="<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
